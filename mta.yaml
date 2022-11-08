@@ -10,6 +10,8 @@ modules:
   - name: srv-api
     properties:
       srv-url: ${default-url}
+  requires: 
+    - name: fleetmanagercontainer-db
   parameters:
     buildpack: nodejs_buildpack
   build-parameters:
@@ -18,9 +20,9 @@ modules:
   type: hdb
   path: db
   requires:
-  - name: hdi_db
+  - name: fleetmanagercontainer-db
 resources:
-- name: hdi_db
+- name: fleetmanagercontainer-db
   type: com.sap.xs.hdi-container
   parameters:
     config:
