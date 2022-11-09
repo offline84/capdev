@@ -1,5 +1,9 @@
 using DATA from '../db/schema';
+using CV_VEHICLE from '../db/schema'; 
 
 service FleetService {
-        entity Vehicle as projection on DATA.VEHICLE;
+        entity Vehicles as projection on DATA.VEHICLE;
+
+        @readonly
+        entity ViewVehicles as projection on CV_VEHICLE
 }

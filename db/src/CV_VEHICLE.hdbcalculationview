@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_VEHICLE" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_VEHICLE"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DATA_VEHICLE">
+    <resourceUri>DATA_VEHICLE</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+
+<logicalModel id="DATA_VEHICLE">
+  <attributes>
+    <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="DATA_VEHICLE" columnName="ID"/>
+    </attribute>
+    <attribute id="BRAND" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BRAND"/>
+      <keyMapping columnObjectName="DATA_VEHICLE" columnName="BRAND"/>
+    </attribute>
+    <attribute id="MODEL" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MODEL"/>
+      <keyMapping columnObjectName="DATA_VEHICLE" columnName="MODEL"/>
+    </attribute>
+    <attribute id="COLOR" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COLOR"/>
+      <keyMapping columnObjectName="DATA_VEHICLE" columnName="COLOR"/>
+    </attribute>
+    <attribute id="TYPE_OF_CAR" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TYPE_OF_CAR"/>
+      <keyMapping columnObjectName="DATA_VEHICLE" columnName="TYPE_OF_CAR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>
