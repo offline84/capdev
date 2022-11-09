@@ -5,7 +5,7 @@ version: 1.0.0
 modules:
 - name: CAPfleetmanager-srv
   type: nodejs
-  path: srv
+  path: .
   provides:
   - name: srv-api
     properties:
@@ -16,11 +16,22 @@ modules:
     buildpack: nodejs_buildpack
   build-parameters:
     builder: npm-ci
+    ignore:
+    - '*default-env.json*'
+    - .db/*.env*
+    - /node_modules
+    - ./db/node_modules
+    - ./app
 - name: db
   type: hdb
   path: db
   requires:
   - name: fleetmanagercontainer-db
+  build-parameters:
+    ignore:
+    - default-env.json
+    - .env
+    - '*node modules*'
 resources:
 - name: fleetmanagercontainer-db
   type: com.sap.xs.hdi-container
