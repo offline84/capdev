@@ -19,7 +19,8 @@
         "@sap/xssec": "3.2.14",
         "express": "^4.18.2",
         "hdb": "^0.19.5",
-        "passport": "0.6.0"
+        "passport": "0.6.0",
+        "@sap/hdi-deploy": ">=4"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
@@ -51,7 +52,7 @@
             "target": "."
         },
         "hana": {
-            "deploy-format": "hdtable"
+            "deploy-format": "hdbtable"
         },
         "requires": {
             "db": {

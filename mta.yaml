@@ -5,7 +5,7 @@ version: 1.0.0
 modules:
 - name: CAPfleetmanager-srv
   type: nodejs
-  path: gen/srv
+  path: srv
   provides:
   - name: srv-api
     properties:
