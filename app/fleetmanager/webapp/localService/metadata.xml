@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="FleetService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Vehicles" EntityType="FleetService.Vehicles"/>
+                <EntitySet Name="ViewVehicles" EntityType="FleetService.ViewVehicles"/>
+            </EntityContainer>
+            <EntityType Name="Vehicles">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="MODEL" Type="Edm.String" MaxLength="100"/>
+                <Property Name="BRAND" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COLOR" Type="Edm.String" MaxLength="100"/>
+                <Property Name="TYPE_OF_CAR" Type="Edm.String" MaxLength="100"/>
+                <Property Name="VIN_NUMBER" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FIRST_USE" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="ViewVehicles">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="BRAND" Type="Edm.String" MaxLength="100"/>
+                <Property Name="MODEL" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COLOR" Type="Edm.String" MaxLength="100"/>
+                <Property Name="TYPE_OF_CAR" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <Annotations Target="FleetService.EntityContainer/ViewVehicles">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="FleetService.ViewVehicles/ID">
+                <Annotation Term="Common.Label" String="ID: ID"/>
+            </Annotations>
+            <Annotations Target="FleetService.ViewVehicles/BRAND">
+                <Annotation Term="Common.Label" String="BRAND: BRAND"/>
+            </Annotations>
+            <Annotations Target="FleetService.ViewVehicles/MODEL">
+                <Annotation Term="Common.Label" String="MODEL: MODEL"/>
+            </Annotations>
+            <Annotations Target="FleetService.ViewVehicles/COLOR">
+                <Annotation Term="Common.Label" String="COLOR: COLOR"/>
+            </Annotations>
+            <Annotations Target="FleetService.ViewVehicles/TYPE_OF_CAR">
+                <Annotation Term="Common.Label" String="TYPE_OF_CAR: TYPE_OF_CAR"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

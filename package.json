@@ -6,7 +6,11 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "start": "cds run"
+        "start": "cds run",
+        "watch-fleetmanager": "cds watch --open fleetmanager/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy CAPfleetmanager --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
     },
     "engines": {
         "node": "^16.15"
@@ -19,8 +23,7 @@
         "@sap/xssec": "3.2.14",
         "express": "^4.18.2",
         "hdb": "^0.19.5",
-        "passport": "0.6.0",
-        "@sap/hdi-deploy": ">=4"
+        "passport": "0.6.0"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
@@ -59,5 +62,12 @@
                 "kind": "hana"
             }
         }
+    },
+    "sapux": [
+        "app/fleetmanager"
+    ],
+    "devDependencies": {
+        "@sap/ux-specification": "^1.102.11",
+        "rimraf": "^3.0.2"
     }
 }
