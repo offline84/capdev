@@ -100,7 +100,7 @@
       "routes": [
         {
           "name": "RoutefleetView",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetfleetView"
           ]
@@ -111,8 +111,8 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "fleetView",
-          "viewName": "fleetView"
+          "viewId": "fleet",
+          "viewName": "fleet"
         }
       }
     },

@@ -1,0 +1,64 @@
+<mvc:View controllerName="fleetmanager.controller.fleet"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Table id="fleetmanagerTable"
+		inset="false"
+		alternateRowColors="true"
+		items="{
+			path: '/ViewVehicles'
+		}">
+		<headerToolbar>
+			<OverflowToolbar id="generalFunctionsBar">
+				<Title id ="idTableheader" text="FleetManager" level="H2"/>
+				<ToolbarSpacer id="tbs"/>
+				<SearchField id="search" liveChange=".onSearch" width="20%" />
+				<Label id="buttonLabel" text="Actions:"/>
+				<Button id="newVehicle" text="New" type="Transparent"/>
+	</OverflowToolbar>
+		</headerToolbar>
+		<columns>
+			<Column id="uid"
+				width="4em">
+				<Text id="uidtxt" text="UID" />
+			</Column>
+			<Column id="brandmodel"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text id="brandtxt" text="Brand and Model" />
+			</Column>
+            <Column id="color"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="End">
+				<Text id="colortxt" text="Color" />
+			</Column>
+            <Column id="type"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="End">
+				<Text id="typetxt" text="Type Of Car" />
+			</Column>
+			<Column id="action"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				hAlign="End">
+				<Text id="actiontxt" text="Actions" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem id="listItem" vAlign="Middle">
+				<cells>
+					<ObjectIdentifier id="idcell"
+						text="{ID}"/>
+					<Text id="brandmodelcell"
+						text="{BRAND} {MODEL}" />
+					<Text id="colorcar"
+						text="{COLOR}" />
+					<Text id="typecar"
+						text="{TYPE_OF_CAR}" />
+					<Button id="DeleteButton" text="X"></Button>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>
