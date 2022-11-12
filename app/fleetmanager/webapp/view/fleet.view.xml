@@ -13,7 +13,7 @@
 				<ToolbarSpacer id="tbs"/>
 				<SearchField id="search" liveChange=".onSearch" width="20%" />
 				<Label id="buttonLabel" text="Actions:"/>
-				<Button id="newVehicle" text="New" type="Transparent"/>
+				<Button id="newVehicle" press=".onPressNewVehicleButton" type="Emphasized" icon="sap-icon://add"/>
 	</OverflowToolbar>
 		</headerToolbar>
 		<columns>
@@ -56,7 +56,7 @@
 						text="{COLOR}" />
 					<Text id="typecar"
 						text="{TYPE_OF_CAR}" />
-					<Button id="DeleteButton" text="X"></Button>
+					<Button id="DeleteButton" icon="sap-icon://delete"></Button>
 				</cells>
 			</ColumnListItem>
 		</items>
