@@ -3,13 +3,17 @@ sap.ui.define([
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/Dialog",
+    "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel"
 ],
 
-    function (Controller, Filter, FilterOperator, Fragment, MessageToast) {
+    function (Controller, Filter, FilterOperator, Dialog, Fragment, MessageToast,  JSONModel) {
         "use strict";
 
         var TableController = Controller.extend("fleetmanager.controller.fleet", {
+
+            
 
             onSearch: function (oEvent){
                 var searchQuery = oEvent.getSource().getValue();
@@ -61,10 +65,24 @@ sap.ui.define([
                 },
 
                 onDeleteSingleVehiclePressed: function (oEvent) {
-                    console.log("check");
                     var oBindingContext = oEvent.getSource().getBindingContext();
-                oBindingContext.delete();
-                    
+                    var oBindingContextObject = oEvent.getSource().getBindingContext().getObject();
+                    var oModelForDeletion = new JSONModel(oBindingContextObject);
+                    this.getView().setModel(oModelForDeletion,"vehicle_model");
+                    if (!this.pDeleteVehicleDialog) {
+                        this.pDeleteVehicleDialog= this.loadFragment({name: "fleetmanager.fragment.deleteVehicleConfirmDialog"});
+                    }
+                    this.pDeleteVehicleDialog.then(function(oDialog) {
+                        oDialog.open();
+                    });
+                },
+
+                deleteVehicle: function (oEvent){
+                    this.getView().getModel();
+                    var oBindingContext = oEvent.getSource().getBindingContext();
+                                    oBindingContext.delete();
+                                    MessageToast.show("vehicle deleted!");
+                                    this.oApproveDialog.close();
                 }
         });
 
