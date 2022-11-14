@@ -5,7 +5,7 @@
 		inset="false"
 		alternateRowColors="true"
 		items="{
-			path: '/ViewVehicles'
+			path: '/Vehicles'
 		}">
 		<headerToolbar>
 			<OverflowToolbar id="generalFunctionsBar">
@@ -56,7 +56,7 @@
 						text="{COLOR}" />
 					<Text id="typecar"
 						text="{TYPE_OF_CAR}" />
-					<Button id="DeleteButton" icon="sap-icon://delete"></Button>
+					<Button id="DeleteButton" press=".onDeleteSingleVehiclePressed" icon="sap-icon://delete"></Button>
 				</cells>
 			</ColumnListItem>
 		</items>

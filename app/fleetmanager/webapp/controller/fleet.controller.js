@@ -42,11 +42,29 @@ sap.ui.define([
             },
                 onSubmitPressed: function (){
                     
+                    var oEntry = {
+                        MODEL: this.byId("modelInput").getValue(),
+                        BRAND: this.byId("brandInput").getValue(),
+                        COLOR: this.byId("colorInput").getValue(),
+                        TYPE_OF_CAR: this.byId("tocInput").getValue(),
+                        VIN_NUMBER: this.byId("vinNumberInput").getValue(),
+                        //FIRST_USE: this.byId("dateOfFirstUse").getValue()
+                    }
+
+                    var oBindingContext =this.getView().byId("fleetmanagerTable").getBinding("items");
+                    oBindingContext.create(oEntry);
                 },
 
-                onNewVehicleDialogCancelled: function (){
+                onNewVehicleDialogCancelled: function () {
                     this.byId("newVehicleDialog").close();
                     MessageToast.show("No vehicle was added");
+                },
+
+                onDeleteSingleVehiclePressed: function (oEvent) {
+                    console.log("check");
+                    var oBindingContext = oEvent.getSource().getBindingContext();
+                oBindingContext.delete();
+                    
                 }
         });
 

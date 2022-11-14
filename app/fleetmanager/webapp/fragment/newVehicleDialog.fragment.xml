@@ -14,6 +14,8 @@
                 <Input id="colorInput" type="Text" placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
                 <Input id="tocInput" type="Text" placeholder="enter type of car here" />
+                <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
+                <DatePicker	id="dateOfFirstUse"	placeholder="Enter Date"/>
             </VBox>
         </HBox>
         <beginButton>
