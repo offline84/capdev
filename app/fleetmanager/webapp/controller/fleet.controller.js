@@ -14,8 +14,6 @@ sap.ui.define([
 
         var TableController = Controller.extend("fleetmanager.controller.fleet", {
 
-
-
             onSearch: function (oEvent) {
                 var searchQuery = oEvent.getSource().getValue();
 
@@ -37,27 +35,65 @@ sap.ui.define([
 
             onPressNewVehicleButton: function () {
                 if (!this.pDialog) {
+                    var vehicleModel = {
+                        MODEL: "",
+                        BRAND: "",
+                        COLOR: "",
+                        TYPoModelE_OF_CAR: "",
+                        VIN_NUMBER: "",
+                        //FIRST_USE: ""
+                    }
+                    var oEntry = new JSONModel(vehicleModel);
+                    this.getView().setModel(oEntry,"addVehicleModel");
+
                     this.pDialog = this.loadFragment({
                         name: "fleetmanager.fragment.newVehicleDialog"
                     });
                 }
                 this.pDialog.then(function (oDialog) {
                     oDialog.open();
+                    this.getValidationOnScreen(this.getView);
                 });
             },
+
+            /**
+             *  To add a vehicle, we call the model set in the the view and insert this in vehicleModel.
+             *  With that vehicleModel we do an insert into the database. 
+             */
             onSubmitPressed: function () {
 
-                var oEntry = {
-                    MODEL: this.byId("modelInput").getValue(),
-                    BRAND: this.byId("brandInput").getValue(),
-                    COLOR: this.byId("colorInput").getValue(),
-                    TYPE_OF_CAR: this.byId("tocInput").getValue(),
-                    VIN_NUMBER: this.byId("vinNumberInput").getValue(),
-                    //FIRST_USE: this.byId("dateOfFirstUse").getValue()
+                var oModel = this.getView().getModel("addVehicleModel");
+
+                var vehicleModel = {
+                    MODEL: oModel.oData.MODEL,
+                    BRAND: oModel.oData.BRAND,
+                    COLOR: oModel.oData.COLOR,
+                    TYPE_OF_CAR: oModel.oData.TYPE_OF_CAR,
+                    VIN_NUMBER: oModel.oData.VIN_NUMBER,
+                    FIRST_USE: oModel.oData.FIRST_USE
                 }
 
                 var oBindingContext = this.getView().byId("fleetmanagerTable").getBinding("items");
-                oBindingContext.create(oEntry);
+                debugger;
+                oBindingContext.create(vehicleModel);
+                this.byId("newVehicleDialog").close();
+            },
+
+            getValidationOnScreen: function (oView) {
+                debugger;
+                var oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
+                var oMessageManager = sap.ui.getCore().getMessageManager().registerObject(oView, true);
+
+                oMessageManager.registerMessageProcessor(oMessageProcessor);
+
+                oMessageManager.addMessages(
+                    new sap.ui.core.message.Message({
+                        message: "Vin-numbers need to be 17 characters long, last 4 are numbers",
+                        type: sap.ui.core.MessageType.Error,
+                        target: "vinNumberInput/value",
+                        processor: oMessageProcessor
+                     })
+                );
             },
 
             onNewVehicleDialogCancelled: function () {
@@ -75,7 +111,7 @@ sap.ui.define([
                     onClose: function (sAction) {
                         if (sAction === "DELETE") {
                             oBindingContext.delete();
-                            if(oBindingContext.hasPendingChanges){
+                            if(!oBindingContext.hasPendingChanges()){
                                 MessageToast.show("Vehicle was successfully deleted");
                             }
                         }

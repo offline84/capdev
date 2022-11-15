@@ -30,7 +30,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
                 <Property Name="BRAND" Type="Edm.String" MaxLength="100"/>
-                <Property Name="MODEL" Type="Edm.String" MaxLength="100"/>
+                <Property Name="MODEL" Type="Edm.String" MaxLength="100" />
                 <Property Name="COLOR" Type="Edm.String" MaxLength="100"/>
                 <Property Name="TYPE_OF_CAR" Type="Edm.String" MaxLength="100"/>
             </EntityType>

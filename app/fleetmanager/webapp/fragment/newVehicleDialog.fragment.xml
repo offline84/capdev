@@ -3,19 +3,43 @@
         <HBox width="100%">
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="vinNumberLabel" text="VIN-number" labelFor="vinNumberInput" />
-                <Input id="vinNumberInput" type="Text" placeholder="enter VIN-number here" />
+                <Input id="vinNumberInput" 
+                    value= "{
+                        path:'addVehicleModel>/VIN_NUMBER',
+                        type: 'sap.ui.model.type.String',
+                        constraints:{search:'[A-Ha-hJ-Nj-nPR-Zr-z0-9]{13}[0-9]{4}'}
+                    }" placeholder="enter VIN-number here" />
                 <Label id="modelLabel" text="Model" labelFor="modelInput" />
-                <Input id="modelInput" type="Text" placeholder="enter model here" />
+                <Input id="modelInput"
+                    value= "{
+                        path:'addVehicleModel>/MODEL',
+                        type: 'sap.ui.model.type.String',
+                        constraints:{minLength: 2}                       
+                    }" placeholder="enter model here" />
                 <Label id="brandLabel" text="Brand" labelFor="brandInput" />
-                <Input id="brandInput" type="Text" placeholder="enter brand here" />
+                <Input id="brandInput" value= "{
+                        path:'addVehicleModel>/BRAND',
+                        type: 'sap.ui.model.type.String',
+                        constraints:{minLength: 2}                       
+                    }"  placeholder="enter brand here" />
             </VBox>
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="colorLabel" text="Color" labelFor="colorInput" />
-                <Input id="colorInput" type="Text" placeholder="enter color here" />
+                <Input id="colorInput" value= "{
+                        path:'addVehicleModel>/COLOR',
+                        type: 'sap.ui.model.type.String'                      
+                    }" placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
-                <Input id="tocInput" type="Text" placeholder="enter type of car here" />
+                <Input id="tocInput" value= "{
+                        path:'addVehicleModel>/TYPE_OF_CAR',
+                        type: 'sap.ui.model.type.String'                      
+                    }" placeholder="enter type of car here" />
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
-                <DatePicker	id="dateOfFirstUse"	placeholder="Enter Date"/>
+                <DatePicker	id="dateOfFirstUse" value= "{
+                        path:'addVehicleModel>/FIRST_USE',
+                        type: 'sap.ui.model.type.Date',
+                        constraints:{maximum: 'Date.now()'}                      
+                    }" 	placeholder="Enter Date"/>
             </VBox>
         </HBox>
         <beginButton>
