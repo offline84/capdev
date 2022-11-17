@@ -1,10 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Dialog id="newVehicleDialog" contentWidth="50%" title="New Vehicle">
+    <Dialog id="newVehicleDialog" contentWidth="50%" title="Vehicle details">
         <HBox width="100%">
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="vinNumberLabel" text="VIN-number" labelFor="vinNumberInput" />
                 <Input id="vinNumberInput" 
-                    value= "{vehicleModel>/VIN_NUMBER}" 
+                    value= "{detailsVehicleModel>/VIN_NUMBER}" 
                     liveChange="onChangeVinNumber" 
                     valueLiveUpdate="true" 
                     placeholder="enter VIN-number here" 
@@ -13,7 +13,7 @@
                     />
                 <Label id="modelLabel" text="Model" labelFor="modelInput" />
                 <Input id="modelInput"
-                    value= "{ path:'vehicleModel>/MODEL'}" 
+                    value= "{ path:'detailsVehicleModel>/MODEL'}" 
                     placeholder="enter model here"
                     liveChange="onChangeModel" 
                     valueLiveUpdate="true" 
@@ -22,7 +22,7 @@
                      />
                 <Label id="brandLabel" text="Brand" labelFor="brandInput" />
                 <Input id="brandInput"
-                    value= "{path:'vehicleModel>/BRAND'}"  
+                    value= "{path:'detailsVehicleModel>/BRAND'}"  
                     placeholder="enter brand here"
                     liveChange="onChangeBrand" 
                     valueLiveUpdate="true" 
@@ -33,24 +33,24 @@
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="colorLabel" text="Color" labelFor="colorInput" />
                 <Input id="colorInput" value= "{
-                        path:'vehicleModel>/COLOR',
+                        path:'detailsVehicleModel>/COLOR',
                         type: 'sap.ui.model.type.String'                      
                     }" placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
                 <Input id="tocInput" value= "{
-                        path:'vehicleModel>/TYPE_OF_CAR',
+                        path:'detailsVehicleModel>/TYPE_OF_CAR',
                         type: 'sap.ui.model.type.String'                      
                     }" placeholder="enter type of car here" />
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
                 <DatePicker	id="dateOfFirstUse" value= "{
-                        path:'vehicleModel>/FIRST_USE',
-                        type: 'sap.ui.model.type.Date',
-                        constraints:{maximum: 'Date.now()'}                      
+                        path:'detailsVehicleModel>/FIRST_USE',
+                        type: 'sap.ui.model.type.Date'} 
+
                     }" 	placeholder="Enter Date"/>
             </VBox>
         </HBox>
         <beginButton>
-            <Button icon="sap-icon://cancel" press=".onNewVehicleDialogCancelled"></Button>
+            <Button press ="onDeleteSingleVehiclePressed" icon="sap-icon://delete" />
         </beginButton>
         <endButton>
             <Button text="Submit" press=".onSubmitPressed"></Button>
