@@ -14,7 +14,7 @@ module.exports = (srv) => {
         let query = SELECT`VIN_NUMBER`.from`Vehicles`.where`VIN_NUMBER = ${req.data.VIN_NUMBER}`;
         let vinInDb = await srv.run(query);
             if(vinInDb.length > 0) {
-                req.reject(400, "VIN_NUMBER is known in database, only vehicles can be added if vin number is unique");
+                req.reject(400, "VIN_NUMBER is known in database. Only vehicles with unique vin number can be added");
             }
 
         if (req.data.MODEL == "") {
