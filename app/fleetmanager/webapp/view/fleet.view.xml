@@ -19,24 +19,32 @@
 		<columns>
 			<Column id="uid"
 				width="4em">
-				<Text id="uidtxt" text="UID" />
+				<Text text="UID" />
+			</Column>
+			<Column id="vin"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="VIN indicator" />
 			</Column>
 			<Column id="brandmodel"
 				minScreenWidth="Tablet"
 				demandPopin="true">
-				<Text id="brandtxt" text="Brand and Model" />
+				<Text text="Brand and Model" />
 			</Column>
             <Column id="color"
 				minScreenWidth="Tablet"
-				demandPopin="true"
-				hAlign="End">
-				<Text id="colortxt" text="Color" />
+				demandPopin="true">
+				<Text text="Color" />
 			</Column>
             <Column id="type"
 				minScreenWidth="Tablet"
-				demandPopin="true"
-				hAlign="End">
+				demandPopin="true">
 				<Text id="typetxt" text="Type Of Car" />
+			</Column>
+			<Column id="firstuse"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Date of first use" />
 			</Column>
 			<Column id="action"
 				minScreenWidth="Tablet"
@@ -50,12 +58,16 @@
 				<cells>
 					<ObjectIdentifier id="idcell"
 						text="{ID}"/>
+					<Text id="VINcar"
+						text="{VIN_NUMBER}" />
 					<Text id="brandmodelcell"
 						text="{BRAND} {MODEL}" />
 					<Text id="colorcar"
 						text="{COLOR}" />
 					<Text id="typecar"
 						text="{TYPE_OF_CAR}" />
+					<Text id="firstusecar"
+						text="{FIRST_USE}" />
 					<Button id="detailsButton" press=".onShowDetailsSingleVehiclePressed" icon="sap-icon://form"></Button>
 				</cells>
 			</ColumnListItem>

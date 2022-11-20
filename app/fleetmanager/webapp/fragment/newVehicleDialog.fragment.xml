@@ -44,9 +44,10 @@
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
                 <DatePicker	id="dateOfFirstUse" value= "{
                         path:'vehicleModel>/FIRST_USE',
-                        type: 'sap.ui.model.type.Date',
-                        constraints:{maximum: 'Date.now()'}                      
-                    }" 	placeholder="Enter Date"/>
+                        type: 'sap.ui.model.type.Date'
+                    }" 
+                    maxDate="{dateModel>/maxDate}"
+                    placeholder="Enter Date"/>
             </VBox>
         </HBox>
         <beginButton>

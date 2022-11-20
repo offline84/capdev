@@ -1,10 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Dialog id="newVehicleDialog" contentWidth="50%" title="Vehicle details">
+    <Dialog id="detailsVehicleDialog" contentWidth="50%" title="Vehicle details">
         <HBox width="100%">
+            <CheckBox text="Edit all fields" visible="false" useEntireWidth="true" />
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="vinNumberLabel" text="VIN-number" labelFor="vinNumberInput" />
-                <Input id="vinNumberInput" 
+               <Input id="vinNumberInput" 
                     value= "{detailsVehicleModel>/VIN_NUMBER}" 
+                    editable="{editableInput>/VIN_NUMBER}"
                     liveChange="onChangeVinNumber" 
                     valueLiveUpdate="true" 
                     placeholder="enter VIN-number here" 
@@ -14,6 +16,7 @@
                 <Label id="modelLabel" text="Model" labelFor="modelInput" />
                 <Input id="modelInput"
                     value= "{ path:'detailsVehicleModel>/MODEL'}" 
+                    editable="{editableInput>/MODEL}"
                     placeholder="enter model here"
                     liveChange="onChangeModel" 
                     valueLiveUpdate="true" 
@@ -22,7 +25,9 @@
                      />
                 <Label id="brandLabel" text="Brand" labelFor="brandInput" />
                 <Input id="brandInput"
-                    value= "{path:'detailsVehicleModel>/BRAND'}"  
+                    visible= "true"
+                    value= "{path:'detailsVehicleModel>/BRAND'}" 
+                    editable="{editableInput>/BRAND}"
                     placeholder="enter brand here"
                     liveChange="onChangeBrand" 
                     valueLiveUpdate="true" 
@@ -32,28 +37,37 @@
             </VBox>
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="colorLabel" text="Color" labelFor="colorInput" />
-                <Input id="colorInput" value= "{
+                <Input id="colorInput"
+                    value= "{
                         path:'detailsVehicleModel>/COLOR',
                         type: 'sap.ui.model.type.String'                      
-                    }" placeholder="enter color here" />
+                    }" 
+                    editable="{editableInput>/COLOR}"
+                    placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
-                <Input id="tocInput" value= "{
+                <Input id="tocInput" 
+                    value= "{
                         path:'detailsVehicleModel>/TYPE_OF_CAR',
                         type: 'sap.ui.model.type.String'                      
-                    }" placeholder="enter type of car here" />
+                    }" 
+                    editable="{editableInput>/TYPE_OF_CAR}"
+                    placeholder="enter type of car here" />
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
-                <DatePicker	id="dateOfFirstUse" value= "{
+                <DatePicker	
+                    id="viewDateOfFirstUse" 
+                    value= "{
                         path:'detailsVehicleModel>/FIRST_USE',
-                        type: 'sap.ui.model.type.Date'} 
-
-                    }" 	placeholder="Enter Date"/>
+                        type: 'sap.ui.model.type.Date'
+                        }" 
+                    editable="{editableInput>/FIRST_USE}"	
+                    maxDate="{dateModel>/maxDate}"
+                    placeholder="Enter Date"/>
             </VBox>
         </HBox>
-        <beginButton>
+        <buttons>
             <Button press ="onDeleteSingleVehiclePressed" icon="sap-icon://delete" />
-        </beginButton>
-        <endButton>
-            <Button text="Submit" press=".onSubmitPressed"></Button>
-        </endButton>
+            <Button icon="sap-icon://edit" press="onEditVehiclePressed"/>
+            <Button icon="sap-icon://decline" press=".onDetailsVehicleDialogClosePressed"/>
+        </buttons>
     </Dialog>
 </core:FragmentDefinition>
