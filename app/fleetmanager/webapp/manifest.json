@@ -67,7 +67,11 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "fleetmanager.i18n.i18n"
+          "bundleName": "fleetmanager.i18n.i18n",
+          "fallbackLocale": "en",
+          "supportedLocales": [
+            "en"
+          ]
         }
       },
       "": {

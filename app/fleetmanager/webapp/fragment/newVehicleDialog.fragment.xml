@@ -3,58 +3,41 @@
         <HBox width="100%">
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="vinNumberLabel" text="VIN-number" labelFor="vinNumberInput" />
-                <Input id="vinNumberInput" 
-                    value= "{vehicleModel>/VIN_NUMBER}" 
-                    liveChange="onChangeVinNumber" 
-                    valueLiveUpdate="true" 
-                    placeholder="enter VIN-number here" 
-                    valueState= "{vehicleStateModel>/VIN_NUMBER_STATE}" 
-                    valueStateText= "{vehicleStateModel>/VIN_NUMBER_STATE_TEXT}" 
-                    />
+                <Input id="vinNumberInput" value="{vehicleModel>/VIN_NUMBER}" liveChange="onChangeVinNumber" valueLiveUpdate="true" placeholder="enter VIN-number here" valueState="{vehicleStateModel>/VIN_NUMBER_STATE}" valueStateText="{vehicleStateModel>/VIN_NUMBER_STATE_TEXT}" />
                 <Label id="modelLabel" text="Model" labelFor="modelInput" />
-                <Input id="modelInput"
-                    value= "{ path:'vehicleModel>/MODEL'}" 
-                    placeholder="enter model here"
-                    liveChange="onChangeModel" 
-                    valueLiveUpdate="true" 
-                    valueState= "{vehicleStateModel>/MODEL_STATE}"
-                    valueStateText= "{vehicleStateModel>/MODEL_STATE_TEXT}"
-                     />
+                <Input id="modelInput" value="{ path:'vehicleModel>/MODEL'}" placeholder="enter model here" liveChange="onChangeModel" valueLiveUpdate="true" valueState="{vehicleStateModel>/MODEL_STATE}" valueStateText="{vehicleStateModel>/MODEL_STATE_TEXT}" />
                 <Label id="brandLabel" text="Brand" labelFor="brandInput" />
-                <Input id="brandInput"
-                    value= "{path:'vehicleModel>/BRAND'}"  
-                    placeholder="enter brand here"
-                    liveChange="onChangeBrand" 
-                    valueLiveUpdate="true" 
-                    valueState= "{vehicleStateModel>/BRAND_STATE}"
-                    valueStateText= "{vehicleStateModel>/BRAND_STATE_TEXT}"
-                     />
+                <Input id="brandInput" value="{path:'vehicleModel>/BRAND'}" placeholder="enter brand here" liveChange="onChangeBrand" valueLiveUpdate="true" valueState="{vehicleStateModel>/BRAND_STATE}" valueStateText="{vehicleStateModel>/BRAND_STATE_TEXT}" />
             </VBox>
             <VBox class="sapUiSmallMargin" width="50%">
                 <Label id="colorLabel" text="Color" labelFor="colorInput" />
-                <Input id="colorInput" value= "{
+                <Input id="colorInput" value="{
                         path:'vehicleModel>/COLOR',
                         type: 'sap.ui.model.type.String'                      
                     }" placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
-                <Input id="tocInput" value= "{
-                        path:'vehicleModel>/TYPE_OF_CAR',
-                        type: 'sap.ui.model.type.String'                      
-                    }" placeholder="enter type of car here" />
+                <Select id="newVehicleCartypeInput"
+                         forceSelection="false" 
+                         showSecondaryValues="true" 
+                         items="{ path: '/CarTypes' }"
+                         selectedKey="{ 
+							path: 'vehicleModel>/TYPE_OF_CAR_ID',
+							type: 'sap.ui.model.type.Integer'
+						}">
+                    <core:ListItem id="newVehicleCartypeListItem" key="{ID}" text="{CARTYPE}" additionalText="{DOOR_COUNT} doors" />
+                </Select>
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
-                <DatePicker	id="dateOfFirstUse" value= "{
+                <DatePicker id="dateOfFirstUse" value="{
                         path:'vehicleModel>/FIRST_USE',
                         type: 'sap.ui.model.type.Date'
-                    }" 
-                    maxDate="{dateModel>/maxDate}"
-                    placeholder="Enter Date"/>
+                    }" maxDate="{dateModel>/maxDate}" placeholder="Enter Date" />
             </VBox>
         </HBox>
         <beginButton>
-            <Button icon="sap-icon://cancel" press=".onNewVehicleDialogCancelled"></Button>
+            <Button icon="sap-icon://cancel" press=".onNewVehicleDialogCancelled" />
         </beginButton>
         <endButton>
-            <Button text="Submit" press=".onSubmitPressed"></Button>
+            <Button text="Submit" press=".onSubmitPressed" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

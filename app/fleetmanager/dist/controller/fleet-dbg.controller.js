@@ -16,13 +16,13 @@ sap.ui.define([
 
         var TableController = Controller.extend("fleetmanager.controller.fleet", {
 
-            onInit() {
+            onInit(){
                 var vehicleModel = {
                     VIN_NUMBER: "",
                     BRAND: "",
                     MODEL: "",
                     COLOR: "",
-                    TYPE_OF_CAR_ID: 0,
+                    TYPE_OF_CAR: "",
                     FIRST_USE: null
                 }
                 var oModel = new JSONModel(vehicleModel);
@@ -42,7 +42,7 @@ sap.ui.define([
                 var dateModel = {
                     maxDate: new Date()
                 }
-
+        
                 var oDateModel = new JSONModel(dateModel);
                 this.getView().setModel(oDateModel, "dateModel");
 
@@ -55,7 +55,7 @@ sap.ui.define([
                     FIRST_USE: false
                 }
                 var oEditModel = new JSONModel(editableInput);
-                this.getView().setModel(oEditModel, "editableInput")
+                this.getView().setModel(oEditModel,"editableInput")
 
             },
 
@@ -68,7 +68,7 @@ sap.ui.define([
                             new Filter({ path: "MODEL", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
                             new Filter({ path: "BRAND", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
                             new Filter({ path: "COLOR", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
-                            new Filter({ path: "TYPE_OF_CAR/CARTYPE", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
+                            new Filter({ path: "TYPE_OF_CAR", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
                             new Filter({ path: "VIN_NUMBER", operator: FilterOperator.Contains, value1: searchQuery, caseSensitive: false }, FilterOperator.Contains, searchQuery),
                         ]
                     });
@@ -97,22 +97,21 @@ sap.ui.define([
             onSubmitPressed: function () {
 
                 var oModel = this.getView().getModel("vehicleModel");
-                let oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
+                let oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern : "yyyy-MM-dd" });
                 var date = null;
-                if (oModel.getProperty("/FIRST_USE")) {
+                if(oModel.getProperty("/FIRST_USE")){
                     date = oDateFormat.format(oModel.getProperty("/FIRST_USE"));
                 }
-                let id = oModel.getProperty("/TYPE_OF_CAR");
-
+                
                 var addVehicleModel = {
                     MODEL: oModel.getProperty("/MODEL"),
                     BRAND: oModel.getProperty("/BRAND"),
                     COLOR: oModel.getProperty("/COLOR"),
-                    TYPE_OF_CAR_ID: oModel.getProperty("/TYPE_OF_CAR"),
+                    TYPE_OF_CAR: oModel.getProperty("/TYPE_OF_CAR"),
                     VIN_NUMBER: oModel.getProperty("/VIN_NUMBER"),
                     FIRST_USE: date
                 }
-
+                
                 var oBindingContext = this.getView().byId("fleetmanagerTable").getBinding("items");
 
                 if (addVehicleModel.VIN_NUMBER != "" && addVehicleModel.MODEL != "" && addVehicleModel.BRAND != "") {
@@ -125,10 +124,10 @@ sap.ui.define([
 
                     // reset values of vehiclemodel
                     for (const [key, value] of Object.entries(addVehicleModel)) {
-                        if (key == "FIRST_USE") {
-                            oModel.setProperty("/" + key, null);
+                        if(key == "FIRST_USE"){
+                            oModel.setProperty("/"+ key, null);
                         }
-                        else oModel.setProperty("/" + key, "");
+                        else oModel.setProperty("/"+ key, "");
                     }
                 }
                 else MessageBox.warning("New vehicle contains invalid fields!");
@@ -177,40 +176,34 @@ sap.ui.define([
                 this._ViewDetailsDialog.close();
             },
 
-            onShowDetailsSingleVehiclePressed: function (oEvent) {
-                if (!this._ViewDetailsDialog) {
+            onShowDetailsSingleVehiclePressed: function(oEvent){
+                if(!this._ViewDetailsDialog){
                     this.viewDetailsDialog = "detailsVehicleDialog";
-                    this._ViewDetailsDialog = new sap.ui.xmlfragment(this.viewDetailsDialog, "fleetmanager.fragment.detailsVehicleDialog", this);
+                    this._ViewDetailsDialog= new sap.ui.xmlfragment(this.viewDetailsDialog, "fleetmanager.fragment.detailsVehicleDialog", this);
                     this.getView().addDependent(this._ViewDetailsDialog);
                 }
-
+              
                 var oCtx = oEvent.getSource().getBindingContext();
                 let oObj = oCtx.getObject();
-                
+
                 //setting the date in correct format for datepicker, if date is null, do nothing (else = 1 jan. 1970 )
                 let date = oObj.FIRST_USE;
-                if (date) {
+                if(date){
                     oObj.FIRST_USE = new Date(date);
                 }
 
-                //setting typeID if not null
-                if (oObj.TYPE_OF_CAR) {
-                    oObj.TYPE_OF_CAR_ID = oObj.TYPE_OF_CAR.ID;
-                }
-                else oObj.TYPE_OF_CAR_ID = 0;
-
                 var oModel = new JSONModel(oObj);
                 this._ViewDetailsDialog.setBindingContext(oCtx);
-                this._ViewDetailsDialog.setModel(oModel, "detailsVehicleModel");
+                this._ViewDetailsDialog.setModel(oModel,"detailsVehicleModel");
 
                 // Define which field should be editable
                 let editableMode = this.getView().getModel("editableInput");
                 for (const [key, value] of Object.entries(oObj)) {
-                    if (value == "" || value == null) {
-                        editableMode.setProperty("/" + key, true);
+                    if(value == "" || value == null){
+                        editableMode.setProperty("/"+ key, true);
                     }
-                    else {
-                        editableMode.setProperty("/" + key, false);
+                    else{
+                        editableMode.setProperty("/"+ key, false);
                     }
                 }
 
@@ -221,58 +214,30 @@ sap.ui.define([
                 this._ViewDetailsDialog.close();
             },
 
-            onEditVehiclePressed: function (oEvent) {
+            onEditVehiclePressed: function (oEvent){
                 var oBindingContext = oEvent.getSource().getBindingContext();
-                var oDetailsModel = this._ViewDetailsDialog.getModel("detailsVehicleModel");
+                var oDetailsModel =  this._ViewDetailsDialog.getModel("detailsVehicleModel");
                 var oObj = oBindingContext.getObject();
 
-                //converts the date of oDetailsModel to string;
-                var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
-                if(typeof(oDetailsModel.getProperty("/FIRST_USE")) !== 'string'){
-                    var date;
-                    
-                    if (oDetailsModel.getProperty("/FIRST_USE")) {
-                        date = oDateFormat.format(oDetailsModel.getProperty("/FIRST_USE"));
-                        oDetailsModel.setProperty("/FIRST_USE", date);
-                    }
-                }
-
-                 //setting typeID if not null
-                 if (oObj.TYPE_OF_CAR) {
-                    oObj.TYPE_OF_CAR_ID = oObj.TYPE_OF_CAR.ID;
-                }
-                else oObj.TYPE_OF_CAR_ID = 0;
-
-                let updateDictionary = [];
-                for (const [key, value] of Object.entries(oObj)) {
-                    if(key != "TYPE_OF_CAR"){
-                        let propertyvalue = oDetailsModel.getProperty("/" + key);
-
-                        if (propertyvalue != value) {
-                            if(key == "FIRST_USE"){
-                                date = oDateFormat.format(value);
-                                if(propertyvalue != date){
-                                    updateDictionary.push({path: key, data: propertyvalue});
-                                }
-                            }
-                            else updateDictionary.push({path: key, data: propertyvalue});
-                        }
-                    }
-                }
-                
-                updateDictionary.forEach(entry => {
-                    try{
-                        oBindingContext.setProperty(entry.path, entry.data);
-                    }
-                    catch(error){
-                        MessageBox.error("Updating vehicle encountered an error: /n" + error);
-                    }
-                });
-
+                let oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({pattern : "yyyy-MM-dd" });
+                var date = null;
+                console.log(oDetailsModel.getProperty("/FIRST_USE"));
                 if(oDetailsModel.getProperty("/FIRST_USE")){
-                    oDetailsModel.setProperty("/FIRST_USE", new Date(oDetailsModel.getProperty("/FIRST_USE")));
+                    date = oDateFormat.format(oDetailsModel.getProperty("/FIRST_USE"));
+                    oDetailsModel.setProperty("/FIRST_USE", date);
                 }
 
+                for (const [key, value] of Object.entries(oObj)) {
+                        let propertyvalue = oDetailsModel.getProperty("/"+ key);
+                        if(propertyvalue != value){
+                                try{
+                                    oBindingContext.setProperty(key, oDetailsModel.getProperty("/"+ key));
+                                }
+                                catch(error){
+                                    MessageBox.error("Updating vehicle encountered an error: /n" + error);
+                                }
+                        }
+                }
             }
         });
 

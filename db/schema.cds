@@ -5,17 +5,14 @@ context DATA {
         MODEL       : String(100) not null;
         BRAND       : String(100) not null;
         COLOR       : String(100);
-        TYPE_OF_CAR : String(100);
+        TYPE_OF_CAR : Association to TYPE_OF_CAR;
         VIN_NUMBER  : String(100) not null;
         FIRST_USE   : Date;
     }
-}
-@cds.persistence.exists 
-@cds.persistence.calcview 
-Entity ![CV_VEHICLE] {
-key     ![ID]: Integer  @title: 'ID: ID' ; 
-        ![BRAND]: String(100)  @title: 'BRAND: BRAND' ; 
-        ![MODEL]: String(100)  @title: 'MODEL: MODEL' ; 
-        ![COLOR]: String(100)  @title: 'COLOR: COLOR' ; 
-        ![TYPE_OF_CAR]: String(100)  @title: 'TYPE_OF_CAR: TYPE_OF_CAR' ; 
+
+    entity TYPE_OF_CAR {
+        key ID      : Integer;
+        CARTYPE     : String(100) not null;
+        DOOR_COUNT  : Integer;
+    }
 }

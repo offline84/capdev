@@ -72,7 +72,7 @@
 					<Text id="typecar"
 						text="{TYPE_OF_CAR/CARTYPE}" />
 					<Text id="doorcount"
-						text="{TYPE_OF_CAR/DOOR_COUNT}" />
+						text="{TYPE_OF_CARS/DOOR_COUNT}" />
 					<Text id="firstusecar"
 						text="{FIRST_USE}" />
 					<Button id="detailsButton" press=".onShowDetailsSingleVehiclePressed" icon="sap-icon://form"></Button>

@@ -10,7 +10,7 @@ module.exports = (srv) => {
         if (req.data.VIN_NUMBER == "") {
             req.reject(400, "VIN_NUMBER is required");
         }
-
+        console.log(req);
         let query = SELECT`VIN_NUMBER`.from`Vehicles`.where`VIN_NUMBER = ${req.data.VIN_NUMBER}`;
         let vinInDb = await srv.run(query);
             if(vinInDb.length > 0) {
