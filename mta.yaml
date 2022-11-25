@@ -1,98 +1,105 @@
-_schema-version: "3.1"
+_schema-version: '3.1'
 ID: CAPfleetmanager
 description: A simple CAP project.
 version: 1.0.0
 modules:
-- name: CAPfleetmanager-srv
-  type: nodejs
-  path: .
-  requires:
-  - name: fleetmanagercontainer-db
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-  build-parameters:
-    builder: npm-ci
-    ignore:
-    - '*default-env.json*'
-    - .db/*.env*
-    - /node_modules
-    - ./db/node_modules
-    - ./app
-- name: db
-  type: hdb
-  path: db
-  requires:
-  - name: fleetmanagercontainer-db
-  build-parameters:
-    ignore:
-    - default-env.json
-    - .env
-    - '*node modules*'
-- name: CAPfleetmanager-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: CAPfleetmanager-repo-host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
+  - name: CAPfleetmanager-srv
+    type: nodejs
+    path: .
     requires:
-    - artifacts:
-      - fleetmanager.zip
-      name: fleetmanager
-      target-path: resources/
-- name: fleetmanager
-  type: html5
-  path: app/fleetmanager
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+      - name: fleetmanagercontainer-db
+      - name: fleetmanager-logs
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: '${default-url}'
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+      ignore:
+        - '*default-env.json*'
+        - '.db/*.env*'
+        - /node_modules
+        - ./db/node_modules
+        - ./app
+  - name: db
+    type: hdb
+    path: db
+    requires:
+      - name: fleetmanagercontainer-db
+      - name: fleetmanager-logs
+    build-parameters:
+      ignore:
+        - default-env.json
+        - .env
+        - '*node modules*'
+  - name: CAPfleetmanager-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: CAPfleetmanager-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - fleetmanager.zip
+          name: fleetmanager
+          target-path: resources/
+  - name: fleetmanager
+    type: html5
+    path: app/fleetmanager
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - 'npm run build:cf'
+      supported-platforms: []
 resources:
-- name: fleetmanagercontainer-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    config:
-      schema: FLEETMANAGER
-  properties:
-    hdi-container-name: ${service-name}
-- name: CAPfleetmanager-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: CAPfleetmanager-html5-srv
-    service-plan: app-host
-- name: CAPfleetmanager-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: CAPfleetmanager-destination-service
-    service-plan: lite
+  - name: fleetmanager-logs
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite
+  - name: fleetmanagercontainer-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      config:
+        schema: FLEETMANAGER
+    properties:
+      hdi-container-name: '${service-name}'
+  - name: CAPfleetmanager-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: CAPfleetmanager-html5-srv
+      service-plan: app-host
+  - name: CAPfleetmanager-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: false
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: 'https://ui5.sap.com'
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: CAPfleetmanager-destination-service
+      service-plan: lite
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npx -p @sap/cds-dk cds build --production
+    - builder: custom
+      commands:
+        - npx -p @sap/cds-dk cds build --production

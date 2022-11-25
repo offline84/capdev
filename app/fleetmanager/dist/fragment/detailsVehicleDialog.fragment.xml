@@ -45,13 +45,17 @@
                     editable="{editableInput>/COLOR}"
                     placeholder="enter color here" />
                 <Label id="tocLabel" text="Type of car" labelFor="tocInput" />
-                <Input id="tocInput" 
-                    value= "{
-                        path:'detailsVehicleModel>/TYPE_OF_CAR',
-                        type: 'sap.ui.model.type.String'                      
-                    }" 
+                <Select id="newVehicleCartypeInput"
                     editable="{editableInput>/TYPE_OF_CAR}"
-                    placeholder="enter type of car here" />
+                    forceSelection="false" 
+                    showSecondaryValues="true" 
+                    items="{ path: '/CarTypes'}"
+                    selectedKey="{
+					    path: 'detailsVehicleModel>/TYPE_OF_CAR_ID',
+						type: 'sap.ui.model.type.Integer'           
+					}">
+                    <core:ListItem id="newVehicleCartypeListItem" key="{ID}" text="{CARTYPE}" additionalText="{DOOR_COUNT} doors" />
+                </Select>
                 <Label id="firstUseLabel" text="Date Of first use" labelFor="dateOfFirstUse" />
                 <DatePicker	
                     id="viewDateOfFirstUse" 
