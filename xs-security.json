@@ -1,0 +1,32 @@
+{
+    "xsappname": "CAPfleetmanager",
+    "tenant-mode": "dedicated",
+    "description": "security profile for fleetmanager application",
+    "scopes": [
+        {
+            "name": "$XSAPPNAME.appadmin",
+            "description": "user with all grants in app"
+        },
+        {
+            "name": "$XSAPPNAME.scopeforjobscheduler",
+            "description": "Grants authority to job scheduling service",
+            "grant-as-authority-to-apps": ["1d94f624-52bc-453d-a4db-b05440d8e02c"]
+          }
+    ],
+    "role-templates": [
+        {
+            "name": "appadmin",
+            "description": "Required to perform create, read, update and delete api calls",
+            "scope-references": [
+              "$XSAPPNAME.appadmin"
+            ]
+        }
+    ],
+    "role-collections": [
+        {
+        "name": "fleetManagerUser",
+        "description": "This is a role collection discription.",
+        "role-template-references": ["$XSAPPNAME.appadmin"]
+        }
+    ]
+}
