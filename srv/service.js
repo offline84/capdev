@@ -6,8 +6,6 @@ module.exports = (srv) => {
 
     //Here we auto generate an ID and do some checks on 
     srv.before("CREATE", 'Vehicles', async (req) => {
-        console.log(req);
-        debugger;
 
         if (req.data.VIN_NUMBER == "") {
             req.reject(400, "VIN_NUMBER is required");
