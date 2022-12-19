@@ -3,6 +3,7 @@ ID: CAPfleetmanager
 description: A simple CAP project.
 version: 1.0.0
 modules:
+
 - name: CAPfleetmanager-srv
   type: nodejs
   path: .
@@ -22,6 +23,7 @@ modules:
     - /node_modules
     - ./db/node_modules
     - ./app
+  
 - name: db
   type: hdb
   path: db
@@ -32,6 +34,7 @@ modules:
     - default-env.json
     - .env
     - '*node modules*'
+
 - name: CAPfleetmanager-app-content
   type: com.sap.application.content
   path: .
@@ -46,6 +49,7 @@ modules:
       - fleetmanager.zip
       name: fleetmanager
       target-path: resources/
+
 - name: fleetmanager
   type: html5
   path: app/fleetmanager
@@ -56,7 +60,10 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+
+
 resources:
+
 - name: fleetmanagercontainer-db
   type: com.sap.xs.hdi-container
   parameters:
@@ -64,12 +71,14 @@ resources:
       schema: FLEETMANAGER
   properties:
     hdi-container-name: ${service-name}
+
 - name: CAPfleetmanager-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
     service-name: CAPfleetmanager-html5-srv
     service-plan: app-host
+
 - name: CAPfleetmanager-destination-service
   type: org.cloudfoundry.managed-service
   parameters:
@@ -88,10 +97,14 @@ resources:
     service: destination
     service-name: CAPfleetmanager-destination-service
     service-plan: lite
+
 parameters:
+
   deploy_mode: html5-repo
   enable-parallel-deployments: true
+
 build-parameters:
+
   before-all:
   - builder: custom
     commands:
