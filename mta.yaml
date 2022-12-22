@@ -2,6 +2,7 @@ _schema-version: "3.1"
 ID: CAPfleetmanager
 description: A simple CAP project.
 version: 1.0.0
+
 modules:
 
 - name: CAPfleetmanager-srv
@@ -23,7 +24,7 @@ modules:
     - /node_modules
     - ./db/node_modules
     - ./app
-  
+
 - name: db
   type: hdb
   path: db
@@ -61,8 +62,23 @@ modules:
     - npm run build:cf
     supported-platforms: []
 
+- name: capfleetmanager-approuter
+  type: approuter.nodejs
+  path: capfleetmanager-approuter
+  requires:
+  - name: CAPfleetmanager_html_repo_runtime
+  - name: jobscheduler_destination
+  parameters:
+    disk-quota: 256M
+    memory: 256M
 
 resources:
+
+- name: jobscheduler_destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
 
 - name: fleetmanagercontainer-db
   type: com.sap.xs.hdi-container
@@ -79,24 +95,11 @@ resources:
     service-name: CAPfleetmanager-html5-srv
     service-plan: app-host
 
-- name: CAPfleetmanager-destination-service
+- name: CAPfleetmanager_html_repo_runtime
   type: org.cloudfoundry.managed-service
   parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: CAPfleetmanager-destination-service
-    service-plan: lite
+    service: html5-apps-repo
+    service-plan: app-runtime
 
 parameters:
 
